@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator) {
 	  result.innerHTML = "Fix not yet applied. Loading...<br><br>This should be pretty fast. If it's taking long enough for you to read this, try restarting your browser.";
     navigator.serviceWorker.register('/service-worker.js').then(function(reg){
       window.setTimeout(function(){document.location = '/'}, 5000);
-      result.innerHTML = 'Endless-reload fix applied. Sorry for the trouble. <a href="/">Returning to your game</a>...';
+      result.innerHTML = 'Endless-reload fix applied. Sorry for the trouble. <a href="/angular/app/static">Returning to your game</a>...';
     }).catch(function(err) {
       result.innerHTML = "Oh no, the fix didn't work! Try a hard reload - ctrl+shift+R or ctrl+f5? "+err;
     });
