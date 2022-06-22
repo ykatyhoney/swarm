@@ -5,15 +5,11 @@
     "jest": true,
     "node": true
   },
-  "extends": [
-    "plugin:jsx-a11y/recommended"
-  ],
   "globals": {
     "JSX": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "jsx-a11y",
     "import",
     "sort-keys-fix",
     "react-hooks",

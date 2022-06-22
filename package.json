@@ -1,7 +1,7 @@
 {
   "name": "swarm",
   "version": "1.0.0",
-  "license": "GPL",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -37,7 +37,6 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
