@@ -23,6 +23,7 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
+            <Route exact path="/" element={ <Meat />} />
             <Route exact path="/meat" element={ <Meat />}>
               <Route path="drone" element={<DroneDeatils />} />
               <Route path="meat" element={<MeatDetails />} />

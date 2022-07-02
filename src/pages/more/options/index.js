@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import { Link } from 'react-router-dom';
-import { Container, Form, Dropdown, Card, Button } from "react-bootstrap"
+import { Container, Form, Dropdown, Card, Button, Nav } from "react-bootstrap"
 import { BsFillEyeFill, BsFilm, BsDownload } from "react-icons/bs";
 import { ImBarcode, ImImage } from "react-icons/im";
 import { AiFillWarning, AiOutlineCloudUpload } from "react-icons/ai";
+import User from "./user";
 import classes from "./options.module.css"
 
 const Options = () => {
@@ -74,7 +75,11 @@ const Options = () => {
                 <p>Examples: 00:16, 2:43, 2:30:00, 23 days 7 hours, 2 months 7 days, 1 years 2 months</p>
             </div>
             <Dropdown onSelect={handleSelect}>
-                <Dropdown.Toggle className={classes.toggle_btn} variant="outline-secondary" id="dropdown-basic">
+                <Dropdown.Toggle 
+                    className={classes.toggle_btn} 
+                    variant="outline-secondary" 
+                    id="dropdown-basic"
+                >
                    <ImImage />Theme<strong style={{color: "red"}}>(BETA)</strong>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -88,6 +93,7 @@ const Options = () => {
                 <img src="/img/playfab.0ef01669.png" style={{width: 20}} />
                 <strong style={{marginLeft: 5}}>Sync saved data with other devices{' '}<strong style={{color: "red"}}>(BETA)</strong></strong>
             </div>
+            <User />
             <div className={classes.flex}>
                 <Form.Check.Input type='checkbox' isValid />
                 <strong style={{marginLeft: 5}}> Auto-export every 15 minutes and before closing</strong>
