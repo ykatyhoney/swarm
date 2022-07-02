@@ -1,14 +1,20 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
-import { Container, Form, Dropdown, Card, Button, Nav } from "react-bootstrap"
+import { Container, Form, Dropdown, Card, Button } from "react-bootstrap"
 import { BsFillEyeFill, BsFilm, BsDownload } from "react-icons/bs";
 import { ImBarcode, ImImage } from "react-icons/im";
+import Clipboard from 'clipboard';
 import { AiFillWarning, AiOutlineCloudUpload } from "react-icons/ai";
 import User from "./user";
-import classes from "./options.module.css"
+import classes from "./options.module.css";
+import { Context } from "../../../components/AppContext";
+
+new Clipboard('#data');
 
 const Options = () => {
-    const [ isShow, setIsShow ] = useState(false)
+    const [ isShow, setIsShow ] = useState(false);
+    const { selectedOption, setSelectedOption } = useContext(Context);
+    const data = "MS4xLjEz|Q2hlYXRlciA6KAoKN4IgrgdglgLjCeAHApgZxALlFCA3KqUARgDbIAWAhjAMbnIBO8mIAjCADQgC2y1LAZgCsnECUoNclFqwAMomgHsliiC3lcYjBrEVN1o5BEYBzZhhAaQDNChoBRYwzMGu3GAA9Hp85dHGPMHQLKxomVBhKElceMEiTIxjEG244ygS1ENFKVBojQlUYgDMbZAAlW2QaFgAWUQATBlVkGIBHMGRErK5jCJiTG2pGds7Mvy5yKFwW7pBJ6ZGu8ZBkbmS0YOXkxUR6GH7FevqNpMoIGHpC2cQzi+RVACZT88uIAWe71Trr29eRWcU0wY3Bw9RigMYIIg9SeAKBUPq7zhkNB32WEOBoP+6PhoIAbDFUAB3CTcEg4EyEmAUxiExBQY4MGLcRSodq6GIkZRBfazJqUOj9KC3VD0xkxPLnKAoY4xEmimLHXCKMA2JmzEyKK7LaAmcgwIhgSmzFkXGJEfgmtIvah0Ri+KypSLnC285ZO240LnGZnWmDE0kkhiIX3OmAMILkUO3PiCq1hkrIVrR84BIIpyLAh2iD3nXiWvwAXy49SGmFAEQkWjBFgesgeDwAtLI8Y2BLIACqsPEYGqsXs1AB0AA4+wAtUQ2SsMassOsN5ut9tdnt9gcj8eiVCUaY1kDzpsttud1jDjAPHtCViD1gATlkE64NigRSgyD3B8Xx5Xvf7NSHo6sI+IBeqy75zvWh5Lieq5/gBm7FiAOzUqowQVuQihEgAgvUUgQHk9QAKrQDAAAi1DSBgRRRKgyBcEUiCoFhcSKJg1EkLR9GMZgDwAOw9IokQoWMRgmDgnQ6BAlIlqq1BQKoABiejcAW5BgCpahcAQADCPKKNwHb0LwbE0XRIB3MZFh5BGZBnNkLGIJGJkccgiFgIgAyUMcaGIZW1IRFANBoSARDwMRsDlohoWER5DBeTMwCIV6gUANbBLIiECpMyDTLw5zBXQZwJFyxpXqwDxCDUiEkrQ9A1olXCoCl0oygAslAJDkulXBAgUmQVpms4WNeI3vI1O7gcNN43u8mV0G+uVGP6ADKGFEv1KwSMYNbhh0XCQHwDDbZgu1mSpTWTadXB6OKFjHNRYAkPsT45YwtEnRGrmFkAA";
     const handleSelect = (eventKey) => {
         console.log("ssd", eventKey)
     };
@@ -16,7 +22,10 @@ const Options = () => {
     const handleFocus = (event) => {
         event.target.select();
     };
-  
+    const handleVelocity = (e) => {
+        setSelectedOption(e.target.value)
+    }
+  console.log("selectedOption 2", selectedOption)
     return (
         <Container>
             <h1>Options</h1>
@@ -47,10 +56,26 @@ const Options = () => {
                 <strong style={{marginLeft: 5}}>Number format</strong>
             </div>
             <div>
-                <Form.Check.Input type='radio' isValid />{' '}Standard decimal(legend){' '}
-                <Form.Check.Input type='radio' isValid />{' '}Scientific-E{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Hybrid{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Engineering
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid 
+                />
+                {' '}Standard decimal(legend){' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid 
+                />
+                {' '}Scientific-E{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid 
+                />
+                {' '}Hybrid{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid 
+                />
+                {' '}Engineering
                 <p>Examples: 123.456E6, 123E6, 123.456E36, 123E36</p>       
             </div>
             <div className={classes.flex}>
@@ -58,11 +83,46 @@ const Options = () => {
                 <strong style={{marginLeft: 5}}> Velocity format</strong>
             </div>
             <div>
-                <Form.Check.Input type='radio' isValid />{' '}Seconds{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Minutes{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Hours{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Days{' '}
-                <Form.Check.Input type='radio' isValid />{' '}Swarmwarps{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid
+                    value="seconds"
+                    checked={selectedOption === "seconds"}
+                    onChange={handleVelocity} 
+                />
+                {' '}Seconds{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid
+                    value="minutes"
+                    checked={selectedOption === "minutes"}
+                    onChange={handleVelocity} 
+                />
+                {' '}Minutes{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid
+                    value="hours"
+                    checked={selectedOption === "hours"}
+                    onChange={handleVelocity}
+                />
+                {' '}Hours{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid
+                    value="days"
+                    checked={selectedOption === "days"}
+                    onChange={handleVelocity} 
+                />
+                {' '}Days{' '}
+                <Form.Check.Input 
+                    type='radio' 
+                    isValid
+                    value="swarmwraps"
+                    checked={selectedOption === "sarmwraps"}
+                    onChange={handleVelocity} 
+                />
+                {' '}Swarmwarps{' '}
                 <p>Example: 10 meat/sec</p>
             </div>
             <div className={classes.flex}>
@@ -88,7 +148,16 @@ const Options = () => {
                     <Dropdown.Item eventKey='c' >Something else</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-            <p>Current theme: <span className={classes.cerulean}>Cerulean</span></p>
+            <p>
+                Current theme:{' '} 
+                <a 
+                    className={classes.selectedTheme}
+                    href="https://bootswatch.com/default/"
+                    target="_blannk"
+                >
+                    default white
+                </a>
+            </p>
             <div className={classes.flex}>
                 <img src="/img/playfab.0ef01669.png" style={{width: 20}} />
                 <strong style={{marginLeft: 5}}>Sync saved data with other devices{' '}<strong style={{color: "red"}}>(BETA)</strong></strong>
@@ -106,12 +175,18 @@ const Options = () => {
                 style={{margin: "10px 0"}}
                 type="text"
                 id="inputText"
-                value="MS4xLjEz|Q2hlYXRlciA6KAoKN4IgrgdglgLjCeAHApgZxALlFCA3KqUARgDbIAWAhjAMbnIBO8mIAjCADQgC2y1LAZgCsnECUoNclFqwAMomgHsliiC3lcYjBrEVN1o5BEYBzZhhAaQDNChoBRYwzMGu3GAA9Hp85dHGPMHQLKxomVBhKElceMEiTIxjEG244ygS1ENFKVBojQlUYgDMbZAAlW2QaFgAWUQATBlVkGIBHMGRErK5jCJiTG2pGds7Mvy5yKFwW7pBJ6ZGu8ZBkbmS0YOXkxUR6GH7FevqNpMoIGHpC2cQzi+RVACZT88uIAWe71Trr29eRWcU0wY3Bw9RigMYIIg9SeAKBUPq7zhkNB32WEOBoP+6PhoIAbDFUAB3CTcEg4EyEmAUxiExBQY4MGLcRSodq6GIkZRBfazJqUOj9KC3VD0xkxPLnKAoY4xEmimLHXCKMA2JmzEyKK7LaAmcgwIhgSmzFkXGJEfgmtIvah0Ri+KypSLnC285ZO240LnGZnWmDE0kkhiIX3OmAMILkUO3PiCq1hkrIVrR84BIIpyLAh2iD3nXiWvwAXy49SGmFAEQkWjBFgesgeDwAtLI8Y2BLIACqsPEYGqsXs1AB0AA4+wAtUQ2SsMassOsN5ut9tdnt9gcj8eiVCUaY1kDzpsttud1jDjAPHtCViD1gATlkE64NigRSgyD3B8Xx5Xvf7NSHo6sI+IBeqy75zvWh5Lieq5/gBm7FiAOzUqowQVuQihEgAgvUUgQHk9QAKrQDAAAi1DSBgRRRKgyBcEUiCoFhcSKJg1EkLR9GMZgDwAOw9IokQoWMRgmDgnQ6BAlIlqq1BQKoABiejcAW5BgCpahcAQADCPKKNwHb0LwbE0XRIB3MZFh5BGZBnNkLGIJGJkccgiFgIgAyUMcaGIZW1IRFANBoSARDwMRsDlohoWER5DBeTMwCIV6gUANbBLIiECpMyDTLw5zBXQZwJFyxpXqwDxCDUiEkrQ9A1olXCoCl0oygAslAJDkulXBAgUmQVpms4WNeI3vI1O7gcNN43u8mV0G+uVGP6ADKGFEv1KwSMYNbhh0XCQHwDDbZgu1mSpTWTadXB6OKFjHNRYAkPsT45YwtEnRGrmFkAA="
+                value={data}
                 onChange={handleChange}
                 onFocus={handleFocus}
             />
-            <p>To export, click the text above and 
-                <button className={classes.copy_btn}>copy</button> 
+                <p>To export, click the text above and 
+                <button 
+                    className={classes.copy_btn}
+                    id="data" 
+                    data-clipboard-text={data}
+                >
+                    copy
+                </button> 
                 (ctrl-c). To import, click the text and paste (ctrl-v) your exported data.
             </p>
             <p>It's normal for imported saves to have more units than you exported with. Your swarm continues its work even after saved data is exported/before it's imported.</p>
@@ -141,12 +216,13 @@ const Options = () => {
                 <strong style={{marginLeft: 5}}>Analytics</strong>
             </div>
             <p>Swarm Simulator, like many websites, uses Google Analytics to track actions you take while playing. We use this data to improve the game. Feel free to opt out of Google Analytics.</p>
-            <Link
-                to="https://policies.google.com/technologies/partner-sites"
+            <a
+                href="https://policies.google.com/technologies/partner-sites"
+                target="_blank"
                 className={classes.googleUse}
             >
                 How Google uses data when you use our partners' sites or apps
-            </Link>
+            </a>
         </Container>
     )
 }

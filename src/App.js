@@ -17,9 +17,11 @@ import Contact from "./pages/more/contact";
 import All from "./pages/more/all";
 import CrystalDetails from "./pages/more/all/crystal";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AppProvider } from "./components/AppContext";
 
 function App() {
   return (
+    <AppProvider>
       <BrowserRouter>
         <Layout>
           <Routes>
@@ -45,6 +47,7 @@ function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
+    </AppProvider>
   );
 }
 
