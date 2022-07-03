@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 import { Container, Form, Dropdown, Card, Button } from "react-bootstrap"
 import { BsFillEyeFill, BsFilm, BsDownload } from "react-icons/bs";
 import { ImBarcode, ImImage } from "react-icons/im";
@@ -7,13 +8,16 @@ import Clipboard from 'clipboard';
 import { AiFillWarning, AiOutlineCloudUpload } from "react-icons/ai";
 import User from "./user";
 import classes from "./options.module.css";
-import { Context } from "../../../components/AppContext";
+// import { Context } from "../../../components/AppContext";
 
 new Clipboard('#data');
 
 const Options = () => {
     const [ isShow, setIsShow ] = useState(false);
-    const { selectedOption, setSelectedOption } = useContext(Context);
+    // const { selectedOption, setSelectedOption } = useContext(Context);
+    const [selectedOption, setSelectedOption] = useState("seconds");
+    const [cookies, setCookie, removeCookie] = useCookies(["velocity"]);
+
     const data = "MS4xLjEz|Q2hlYXRlciA6KAoKN4IgrgdglgLjCeAHApgZxALlFCA3KqUARgDbIAWAhjAMbnIBO8mIAjCADQgC2y1LAZgCsnECUoNclFqwAMomgHsliiC3lcYjBrEVN1o5BEYBzZhhAaQDNChoBRYwzMGu3GAA9Hp85dHGPMHQLKxomVBhKElceMEiTIxjEG244ygS1ENFKVBojQlUYgDMbZAAlW2QaFgAWUQATBlVkGIBHMGRErK5jCJiTG2pGds7Mvy5yKFwW7pBJ6ZGu8ZBkbmS0YOXkxUR6GH7FevqNpMoIGHpC2cQzi+RVACZT88uIAWe71Trr29eRWcU0wY3Bw9RigMYIIg9SeAKBUPq7zhkNB32WEOBoP+6PhoIAbDFUAB3CTcEg4EyEmAUxiExBQY4MGLcRSodq6GIkZRBfazJqUOj9KC3VD0xkxPLnKAoY4xEmimLHXCKMA2JmzEyKK7LaAmcgwIhgSmzFkXGJEfgmtIvah0Ri+KypSLnC285ZO240LnGZnWmDE0kkhiIX3OmAMILkUO3PiCq1hkrIVrR84BIIpyLAh2iD3nXiWvwAXy49SGmFAEQkWjBFgesgeDwAtLI8Y2BLIACqsPEYGqsXs1AB0AA4+wAtUQ2SsMassOsN5ut9tdnt9gcj8eiVCUaY1kDzpsttud1jDjAPHtCViD1gATlkE64NigRSgyD3B8Xx5Xvf7NSHo6sI+IBeqy75zvWh5Lieq5/gBm7FiAOzUqowQVuQihEgAgvUUgQHk9QAKrQDAAAi1DSBgRRRKgyBcEUiCoFhcSKJg1EkLR9GMZgDwAOw9IokQoWMRgmDgnQ6BAlIlqq1BQKoABiejcAW5BgCpahcAQADCPKKNwHb0LwbE0XRIB3MZFh5BGZBnNkLGIJGJkccgiFgIgAyUMcaGIZW1IRFANBoSARDwMRsDlohoWER5DBeTMwCIV6gUANbBLIiECpMyDTLw5zBXQZwJFyxpXqwDxCDUiEkrQ9A1olXCoCl0oygAslAJDkulXBAgUmQVpms4WNeI3vI1O7gcNN43u8mV0G+uVGP6ADKGFEv1KwSMYNbhh0XCQHwDDbZgu1mSpTWTadXB6OKFjHNRYAkPsT45YwtEnRGrmFkAA";
     const handleSelect = (eventKey) => {
         console.log("ssd", eventKey)
@@ -23,9 +27,11 @@ const Options = () => {
         event.target.select();
     };
     const handleVelocity = (e) => {
-        setSelectedOption(e.target.value)
+        setCookie("velocity", e.target.value, { path: '/' });
+        // setSelectedOption(e.target.value)
     }
-  console.log("selectedOption 2", selectedOption)
+
+
     return (
         <Container>
             <h1>Options</h1>
@@ -87,7 +93,7 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="seconds"
-                    checked={selectedOption === "seconds"}
+                    checked={cookies.velocity === "seconds"}
                     onChange={handleVelocity} 
                 />
                 {' '}Seconds{' '}
@@ -95,7 +101,7 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="minutes"
-                    checked={selectedOption === "minutes"}
+                    checked={cookies.velocity === "minutes"}
                     onChange={handleVelocity} 
                 />
                 {' '}Minutes{' '}
@@ -103,7 +109,7 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="hours"
-                    checked={selectedOption === "hours"}
+                    checked={cookies.velocity === "hours"}
                     onChange={handleVelocity}
                 />
                 {' '}Hours{' '}
@@ -111,7 +117,7 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="days"
-                    checked={selectedOption === "days"}
+                    checked={cookies.velocity === "days"}
                     onChange={handleVelocity} 
                 />
                 {' '}Days{' '}
@@ -119,7 +125,7 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="swarmwraps"
-                    checked={selectedOption === "sarmwraps"}
+                    checked={cookies.velocity === "sarmwraps"}
                     onChange={handleVelocity} 
                 />
                 {' '}Swarmwarps{' '}
