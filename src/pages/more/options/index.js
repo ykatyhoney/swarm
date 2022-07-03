@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { Container, Form, Dropdown, Card, Button } from "react-bootstrap"
@@ -14,7 +14,6 @@ new Clipboard('#data');
 
 const Options = () => {
     const [ isShow, setIsShow ] = useState(false);
-    // const { selectedOption, setSelectedOption } = useContext(Context);
     const [selectedOption, setSelectedOption] = useState("seconds");
     const [cookies, setCookie, removeCookie] = useCookies(["velocity"]);
 
@@ -28,9 +27,11 @@ const Options = () => {
     };
     const handleVelocity = (e) => {
         setCookie("velocity", e.target.value, { path: '/' });
-        // setSelectedOption(e.target.value)
     }
-
+    
+    useEffect (() => {
+        setCookie("velocity","seconds", { path: '/' });
+    }, [cookies.velocity === undefined])
 
     return (
         <Container>
@@ -93,8 +94,8 @@ const Options = () => {
                     type='radio' 
                     isValid
                     value="seconds"
-                    checked={cookies.velocity === "seconds"}
-                    onChange={handleVelocity} 
+                    checked={ cookies.velocity === undefined ? cookies.velocity === "seconds" : cookies.velocity === "seconds"}
+                    onChange={handleVelocity}
                 />
                 {' '}Seconds{' '}
                 <Form.Check.Input 

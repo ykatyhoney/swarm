@@ -11,12 +11,29 @@ import {
 import {
   GiSpiderAlt
 } from "react-icons/gi";
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 import { AiOutlineContainer } from "react-icons/ai";
 import { BsFillFileEarmarkFontFill } from "react-icons/bs";
 import { Nav, NavDropdown } from 'react-bootstrap';
 
+const LinkButton = (props) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(props.to)
+  }
+  return (
+    <span role='button' style={props.style} onClick={handleClick}>
+      {props.children}
+    </span>
+  )
+}
+
 const Navbar = () => {
+  const location =useLocation();
+  const [ url, setLocation ] = useState("")
+  const [ cookies ] = useCookies(["velocity", "larvaeCount"]);
   const styles = {
     textformat: {
       textDecoration: "none",
@@ -24,30 +41,37 @@ const Navbar = () => {
       marginLeft: 5,
     }
   };
+
+  useEffect (() => {
+    setLocation(location.pathname.replace('/',''))
+  }, [url])
+
+
   return (
-  <Nav variant="tabs" defaultActiveKey="meat">
+  <Nav variant="tabs" defaultActiveKey={url}>
     <Nav.Item>
       <Nav.Link 
         eventKey="meat"
       >
-        <Link
+        <LinkButton
           to='/meat'
           style={{ color: '#337ab7', textDecoration: "none" }}
         >
           35 meat
-        </Link>
+        </LinkButton>
       </Nav.Link>
     </Nav.Item>
     <Nav.Item>
       <Nav.Link 
-        eventKey="larvae" 
+        eventKey="larvae"
       >
-        <Link 
+        <LinkButton 
           to='/larvae'
           style={{ color: "#337ab7", textDecoration: "none" }}
         >
-          11 larvae
-        </Link>
+          { cookies.larvaeCount } {' '}
+          larvae
+        </LinkButton>
       </Nav.Link>
     </Nav.Item>
     <NavDropdown 
