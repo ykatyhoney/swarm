@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Col, Row, Button, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 import { Link } from 'react-router-dom';
@@ -8,12 +9,30 @@ import { Context } from "../../../components/AppContext";
 const DroneDetails = () => {
   const { droneValue, setDroneValue } = useContext(Context);
   const { meatNum, setMeatNum } = useContext(Context);
-  const handleDrone = (e) => {}
-  const handleHatch = (e) => {
-    setDroneValue(e.target.value);
-  }
+  const [ cookies, setCookie ] = useCookies([
+    "velocity", 
+    "larvaeCount", 
+    "meatCount", 
+    "droneValue",
+  ]);
+  const [ droneStateValue, setDroneStateValue ] = useState(0)
 
-  console.log("meatnum", meatNum)
+  const handleDroneChange = (e) => {
+    setDroneStateValue(e.target.value);
+  }
+  const handleHatch = () => {
+    if(droneStateValue === 0) {
+      alert("Please enter number")
+    }
+    if(cookies.droneValue === undefined) {
+      setDroneValue(0 + Number(droneStateValue));
+    }
+    setDroneValue(Number(cookies.droneValue) + Number(droneStateValue));
+  }
+  useEffect(() => {
+    setCookie("droneValue", droneValue , { path: '/' });
+  }, [droneValue])
+
   return (
     <div className={classes.droneDetails}>
       <Link 
@@ -33,20 +52,20 @@ const DroneDetails = () => {
         <Col sm="4">
           <Form.Control 
             type="text" 
-            placeholder="1" 
-            value={droneValue}
-            onChange={handleDrone}
+            placeholder="1"
+            onChange={handleDroneChange}
           />
         </Col>
         <Form.Label column sm="4">
-          drone will cost 10 meat and 1 larva.
+          drone will cost {droneStateValue*10} meat and {droneStateValue} larva.
         </Form.Label>
       </Form.Group>
       <Button
         variant="outline-secondary"
         className={classes.hatch_btn}
+        onClick={handleHatch}
       >
-        Hatch { droneValue === 0 ? 1 : droneValue}
+        Hatch { droneStateValue === "" ? 1 : droneStateValue*10 < meatNum ? droneStateValue : Math.trunc(meatNum/10) }
       </Button>
       <Button
         variant="outline-secondary"

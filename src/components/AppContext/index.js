@@ -12,7 +12,7 @@ const [ cookies, setCookie, removeCookie ] = useCookies([
 ]);
 const [ larvaeNum, setLarvaeNum ] = useState(Number(cookies.larvaeCount) || 10);
 const [ meatNum, setMeatNum ] = useState(Number(cookies.meatCount) || 35);
-const [ droneValue, setDroneValue ] = useState(0);
+const [ droneValue, setDroneValue ] = useState(Number(cookies.droneValue) || 0);
 const [ selectedOption, setSelectedOption ] = useState("seconds");
 
 /******** LarvaeCount **********/
