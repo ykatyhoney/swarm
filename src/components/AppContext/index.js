@@ -14,7 +14,7 @@ const [ cookies, setCookie ] = useCookies([
   "startTime",
 ]);
 const [ larvaeNum, setLarvaeNum ] = useState(Number(cookies.larvaeCount) || 10);
-const [ meatNum, setMeatNum ] = useState(Number(cookies.meatCount) || 35);
+const [ meatCount, setMeatCount ] = useState(Number(cookies.meatCount) || 35);
 const [ droneCount, setDroneCount ] = useState(Number(cookies.droneCount) || 0);
 const [ hatcheryCount, setHatcheryCount ]= useState(Number(cookies.hatcheryCount) || 0);
 const [ startCount, setStartCount ]= useState(Number(cookies.startCount) || 0);
@@ -56,19 +56,19 @@ useEffect(() => {
     setCookie("meatCount", 35 , { path: '/' });
   }, [])
   const updateMeatCookie = () => {
-    setCookie("meatCount", meatNum , { path: '/' });
+    setCookie("meatCount", meatCount , { path: '/' });
   }
   const increasemeat = () => {
     if(droneCount > 0) {
       setTimeout(() => {
-        setMeatNum(meatNum + droneCount);
+        setMeatCount(meatCount + droneCount);
       }, 1000)
     }
   }
   useEffect(() => {
     increasemeat();
     updateMeatCookie();
-  }, [meatNum])
+  }, [meatCount])
 
   
   useEffect (() => {
@@ -83,6 +83,7 @@ useEffect(() => {
     <Context.Provider value={{
       droneCount, setDroneCount,
       hatcheryCount, setHatcheryCount,
+      meatCount, setMeatCount,
     }}
     >
       {children}

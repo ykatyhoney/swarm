@@ -65,8 +65,8 @@ const Navbar = () => {
             to='/meat'
             style={{ color: '#337ab7', textDecoration: "none" }}
           >
-            {/* { cookies.meatCount } meat */}
-            { meatCount } meat
+            { cookies.meatCount } meat
+            {/* { meatCount } meat */}
           </LinkButton>
         </Nav.Link>
       </Nav.Item>
