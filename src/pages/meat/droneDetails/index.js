@@ -8,6 +8,7 @@ import { Context } from "../../../components/AppContext";
 
 const DroneDetails = () => {
   const { droneCount, setDroneCount } = useContext(Context);
+  const { meatCount, setMeatCount } = useContext(Context)
 
   const [ cookies, setCookie ] = useCookies([
     "velocity", 
@@ -40,6 +41,7 @@ const DroneDetails = () => {
 
     setDroneCount(Number(cookies.droneCount) + Number(i));
     setCookie("meatCount", Number(cookies.meatCount)-Number(i*10) , { path: '/' });
+    setMeatCount(meatCount - Number(i*10));
     setCookie("larvaeCount", Number(cookies.larvaeCount)-Number(i) , { path: '/' });
 
     if(Number(cookies.droneCount) === 0 || cookies.droneCount === undefined) {

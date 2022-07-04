@@ -11,12 +11,13 @@ import {
 import {
   GiSpiderAlt
 } from "react-icons/gi";
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { AiOutlineContainer } from "react-icons/ai";
 import { BsFillFileEarmarkFontFill, BsFillArrowUpCircleFill } from "react-icons/bs";
 import { Nav, NavDropdown } from 'react-bootstrap';
+import { Context } from "../../../components/AppContext";
 
 const LinkButton = (props) => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const LinkButton = (props) => {
 }
 
 const Navbar = () => {
+  const { meatCount } = useContext(Context);
   const [ cookies ] = useCookies([
     "velocity", 
     "larvaeCount", 
@@ -63,7 +65,8 @@ const Navbar = () => {
             to='/meat'
             style={{ color: '#337ab7', textDecoration: "none" }}
           >
-            { cookies.meatCount } meat
+            {/* { cookies.meatCount } meat */}
+            { meatCount } meat
           </LinkButton>
         </Nav.Link>
       </Nav.Item>
