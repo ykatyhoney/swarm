@@ -78,3 +78,13 @@
     color: #5d7488;
     cursor: pointer;
 }
+.cardItem {
+    background-color:#dff0d8 !important;
+    margin: 20px 0;
+    margin-top: -50px!important;
+}
+.flex1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

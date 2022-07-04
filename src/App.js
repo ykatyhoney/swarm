@@ -23,33 +23,33 @@ import { CookiesProvider } from "react-cookie";
 function App() {
   return (
     <CookiesProvider>
-    <AppProvider>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route exact path="/" element={ <Meat />} />
-            <Route exact path="/meat" element={ <Meat />}>
-              <Route path="drone" element={<DroneDeatils />} />
-              <Route path="meat" element={<MeatDetails />} />
-            </Route>
-            <Route path="/larvae" element={<Larvae />}>
-              <Route path="larva" element={<LarvaDetails />} />
-            </Route>
-            <Route path="/options" element={<Options />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/statistics" element={<Statistics />} />
-            <Route path="/changelog" element={<Changelog />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/all" element={<All />}>
-              <Route path="meat" element={<MeatDetails />} />
-              <Route path="larva" element={<LarvaDetails />} />
-              <Route path="crystal" element={<CrystalDetails />} />
-              <Route path="drone" element={<DroneDeatils />} />
-            </Route>
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </AppProvider>
+      <AppProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route exact path="/" element={ <Meat />} />
+              <Route exact path="/meat" element={ <Meat />}>
+                <Route path="drone" element={<DroneDeatils />} />
+                <Route path="meat" element={<MeatDetails />} />
+              </Route>
+              <Route path="/larvae" element={<Larvae />}>
+                <Route path="larva" element={<LarvaDetails />} />
+              </Route>
+              <Route path="/options" element={<Options />} />
+              <Route path="/achievements" element={<Achievements />} />
+              <Route path="/statistics" element={<Statistics />} />
+              <Route path="/changelog" element={<Changelog />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/all" element={<All />}>
+                <Route path="meat" element={<MeatDetails />} />
+                <Route path="larva" element={<LarvaDetails />} />
+                <Route path="crystal" element={<CrystalDetails />} />
+                <Route path="drone" element={<DroneDeatils />} />
+              </Route>
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </AppProvider>
     </CookiesProvider>
   );
 }
