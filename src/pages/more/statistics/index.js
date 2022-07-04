@@ -16,6 +16,7 @@ const Statistics = () => {
     "hatcheryClick",
     "startTime",
   ]);
+
   return (
     <Container>
       <h1>Statistics</h1>
@@ -50,25 +51,27 @@ const Statistics = () => {
         </tbody>
       </Table>
       <div>
-        <span>No upgrades purchased</span>
-        <Table responsive>
-          <thead>
-            <tr className={classes.divider2}>
-              <th> Upgrade</th>
-              <th>First Bought</th>
-              <th>Clicks</th>
-              <th>Total Bought</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className={classes.divider1}>
-              <td>Hatchery</td>
-              <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
-              <td>{cookies.hatcheryClick}</td>
-              <td>{cookies.hatcheryClick}</td>
-            </tr >
-          </tbody>
-        </Table>
+        {
+          cookies.hatcheryTime == undefined ? <span>No upgrades purchased</span> :
+          <Table responsive>
+            <thead>
+              <tr className={classes.divider2}>
+                <th> Upgrade</th>
+                <th>First Bought</th>
+                <th>Clicks</th>
+                <th>Total Bought</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className={classes.divider1}>
+                <td>Hatchery</td>
+                <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
+                <td>{cookies.hatcheryClick}</td>
+                <td>{cookies.hatcheryClick}</td>
+              </tr >
+            </tbody>
+          </Table>
+        }
         <div className={classes.flex}>
           <div className={classes.flexCol1}>
             <strong>Save File Size</strong>
@@ -77,7 +80,8 @@ const Statistics = () => {
           </div>
           <div className={classes.flexCol2}>
             <span>1,005 base64 chars</span>
-            <span>{moment(cookies.startTime).fromNow()} - 
+            <span>
+              {moment(cookies.startTime).fromNow()} - 
               { moment(cookies.startTime).format('MMMM Do YYYY, h:mm:ss a') }
             </span>
             <span>never</span>

@@ -16,7 +16,9 @@ const Meat = () => {
             <Col md={3}>
                 <Link className={classes.drone} to="drone">
                     <div className={classes.drone_name}>Drone</div>
-                    <div className={classes.drone_value}>{cookies.droneCount}</div>
+                    <div className={classes.drone_value}>
+                        {cookies.droneCount === undefined ? 0 : cookies.droneCount}
+                    </div>
                 </Link>
                 <Link className={classes.meat} to="meat">
                     <div className={classes.drone_name}>Meat</div>

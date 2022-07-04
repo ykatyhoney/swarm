@@ -18,9 +18,11 @@ import All from "./pages/more/all";
 import CrystalDetails from "./pages/more/all/crystal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppProvider } from "./components/AppContext";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   return (
+    <CookiesProvider>
     <AppProvider>
       <BrowserRouter>
         <Layout>
@@ -48,6 +50,7 @@ function App() {
         </Layout>
       </BrowserRouter>
     </AppProvider>
+    </CookiesProvider>
   );
 }
 

@@ -17,13 +17,13 @@ const MeatDetails = () => {
             <p>You own {cookies.meatCount} meat.</p>
             <p>You earn {' '}
                 { 
-                  cookies.velocity === "seconds" ? "1.00000" :
-                  cookies.velocity === "minutes" ? "60" :
-                  cookies.velocity === "hours" ? "3,600" :
-                  cookies.velocity === "days" ? "86,400" :
-                  cookies.velocity === "swarmWarp" ? "900" : ""
+                 cookies.velocity === "seconds" ? 1*cookies.droneCount
+                 : cookies.velocity === "minutes" ? 60*Number(cookies.droneCount)
+                 : cookies.velocity === "hours" ? 3600*Number(cookies.droneCount)
+                 : cookies.velocity === "days" ? 86400*Number(cookies.droneCount)
+                 : 900*Number(cookies.droneCount)
                 } 
-              {' '}meat per second.
+              {' '}meat per {cookies.velocity}.
             </p>
             <Link
                 to="/meat"

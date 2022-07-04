@@ -34,11 +34,16 @@ const DroneDetails = () => {
     
     if(droneStateValue === 0) {
       alert("Please enter number");
+      return
     }
     if(cookies.droneCount === undefined) {
       setDroneCount(0 + Number(droneStateValue));
     }
 
+    if(Number(cookies.meatCount) < droneStateValue*10) {
+      alert("You can't hatch")
+      return
+    }
     setDroneCount(Number(cookies.droneCount) + Number(droneStateValue));
     setCookie("meatCount", Number(cookies.meatCount)-droneStateValue*10 , { path: '/' });
     setCookie("larvaeCount", Number(cookies.larvaeCount)-droneStateValue , { path: '/' });
@@ -65,15 +70,25 @@ const DroneDetails = () => {
       <p>Each produces {' '}
         {
           cookies.velocity === "seconds" ? "1.00000"
-        : cookies.velocity === "minutes" ? "600"
-        : cookies.velocity === "hours" ? "3,6000"
-        : cookies.velocity === "days" ? "86,4000"
+        : cookies.velocity === "minutes" ? "60"
+        : cookies.velocity === "hours" ? "3,600"
+        : cookies.velocity === "days" ? "86,400"
         : "900/wrap"
         }
-          meat per {' '}
+          {' '}meat per {' '}
         {cookies.velocity}. (×1.00 bonus)
       </p>
-      <p>In total, they produce {cookies.droneCount == 0 ? "1.0000" : cookies.droneCount  } meat per second</p>
+      <p>
+        In total, they produce {' '}
+        {
+          cookies.velocity === "seconds" ? 1*cookies.droneCount
+        : cookies.velocity === "minutes" ? 60*Number(cookies.droneCount)
+        : cookies.velocity === "hours" ? 3600*Number(cookies.droneCount)
+        : cookies.velocity === "days" ? 86400*Number(cookies.droneCount)
+        : 900*Number(cookies.droneCount)
+        }
+        {' '}meat per {cookies.velocity}
+      </p>
       <div className={classes.divider} />
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
         <Form.Label column sm="1">
@@ -97,7 +112,7 @@ const DroneDetails = () => {
         onClick={ () => handleHatch( 
           droneStateValue == "" ? 1 :
           droneStateValue*10 < meatNum ? droneStateValue : 
-          Math.trunc(meatNum/10) 
+          Math.trunc(meatNum/10)
         )}
       >
         Hatch 

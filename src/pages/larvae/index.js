@@ -6,12 +6,22 @@ import { Row, Col } from 'react-bootstrap';
 import classes from "./larvae.module.css";
 
 const Larvae = () => {
-  const [ cookies ] = useCookies(["velocity", "larvaeCount"]);
+  const [ cookies ] = useCookies([
+    "velocity", 
+    "larvaeCount", 
+    "meatCount", 
+    "droneCount",
+    "hatcheryCount",
+    "startCount",
+    "startTime",
+  ]);
   return (
     <Row className={classes.height}>
       <Col md={3}>
         <Link className={classes.larva} to='larva'>
-          <BsFillArrowUpCircleFill color="#337ab7" />
+          { Number(cookies.meatCount) > 300*(Math.pow(10, Number(cookies.hatcheryCount))) ?
+            <BsFillArrowUpCircleFill color="#337ab7" /> : ""        
+          }
           <div className={classes.larva_name}>Larva</div>
           <div className={classes.larva_value}>
             {cookies.larvaeCount} +
