@@ -23,12 +23,12 @@ const DroneDetails = () => {
   const handleDroneChange = (e) => {
     setDroneStateValue(e.target.value);
   }
-  const handleHatch = () => {
-    if(cookies.droneClick == 0) {
+  const handleHatch = (i) => {
+    console.log("props i", i)
+    if(Number(cookies.droneClick) == 0) {
       const time = new Date();
       setCookie("droneTime", time ,{ path: '/' });
     }
-
     setDroneClick(Number(cookies.droneClick)+1)
     setCookie("droneClick", droneClick, {path: '/'});
     
@@ -38,8 +38,10 @@ const DroneDetails = () => {
     if(cookies.droneCount === undefined) {
       setDroneCount(0 + Number(droneStateValue));
     }
+
     setDroneCount(Number(cookies.droneCount) + Number(droneStateValue));
-    setDroneStateValue(0);
+    setCookie("meatCount", Number(cookies.meatCount)-droneStateValue*10 , { path: '/' });
+    setCookie("larvaeCount", Number(cookies.larvaeCount)-droneStateValue , { path: '/' });
   }
 
   useEffect(() => {
@@ -92,12 +94,16 @@ const DroneDetails = () => {
         variant="outline-secondary"
         className={classes.hatch_btn}
         value={droneStateValue}
-        onClick={handleHatch}
+        onClick={ () => handleHatch( 
+          droneStateValue == "" ? 1 :
+          droneStateValue*10 < meatNum ? droneStateValue : 
+          Math.trunc(meatNum/10) 
+        )}
       >
         Hatch 
         { droneStateValue == "" ? 1 :
           droneStateValue*10 < meatNum ? droneStateValue : 
-          Math.trunc(meatNum/10) 
+          Math.trunc(meatNum/10)
         }
       </Button>
       <Button

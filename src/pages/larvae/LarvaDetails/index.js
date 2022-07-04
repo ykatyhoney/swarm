@@ -28,6 +28,7 @@ const LarvaDetails = () => {
 
     setHatcheryCount(Number(cookies.hatcheryCount) + 1);
     setHatcheryClick(Number(cookies.hatcheryClick) + 1);
+    setCookie("meatCount", Number(cookies.meatCount)-300*Math.pow(10, Number(cookies.hatcheryClick)));
   }
   useEffect(() => {
     setCookie("hatcheryCount", hatcheryCount , { path: '/' });
