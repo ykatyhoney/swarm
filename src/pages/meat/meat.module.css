@@ -83,8 +83,14 @@
     margin: 20px 0;
     margin-top: -50px!important;
 }
-.flex1 {
+.body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+.notify_close_btn {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
 }

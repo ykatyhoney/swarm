@@ -33,11 +33,11 @@ const LarvaDetails = () => {
   }
   useEffect(() => {
     setCookie("hatcheryCount", hatcheryCount , { path: '/' });
-  }, [hatcheryCount])
+  }, [ hatcheryCount ])
 
   useEffect(() => {
     setCookie("hatcheryClick", hatcheryClick , { path: '/' });
-  }, [hatcheryClick])
+  }, [ hatcheryClick ])
 
   return (
     <div className={classes.larvaDetails}>

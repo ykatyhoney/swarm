@@ -52,8 +52,6 @@ const DroneDetails = () => {
     setCookie("goodStart", goodStart, {path: '/'});
   }, [goodStart])
   
-  console.log("good start", goodStart)
-
   useEffect(() => {
     setCookie("droneClick", droneClick , { path: '/' });
   }, [droneClick])

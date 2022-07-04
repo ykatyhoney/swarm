@@ -12,20 +12,22 @@ const Meat = () => {
     "meatCount", 
     "droneCount",
   ]);
-  const [ isShow, setIsShow ] = useState(false)
+  const [ isShow, setIsShow ] = useState(true);
   const handleClose = () => {
+    console.log("click")
     setIsShow(true)
   }
+  console.log("cookies start", cookies.goodStart)
   return (
     <Row className={classes.height}>
       <Col md={3}>
-        <Link className={classes.drone} to="drone">
+        <Link className={classes.drone} to="/meat/drone">
           <div className={classes.drone_name}>Drone</div>
           <div className={classes.drone_value}>
             {cookies.droneCount === undefined ? 0 : cookies.droneCount}
           </div>
         </Link>
-        <Link className={classes.meat} to="meat">
+        <Link className={classes.meat} to="/meat/meat">
           <div className={classes.drone_name}>Meat</div>
           <div className={classes.drone_value}>{cookies.meatCount}</div>
         </Link>
@@ -34,7 +36,7 @@ const Meat = () => {
         <Outlet />
       </Col>
       {
-        cookies.goodStart == true ? "" : 
+        cookies.goodStart == true ?
         <Card className={classes.cardItem}>
           <Card.Body>
             <div className={classes.body}>
@@ -46,15 +48,11 @@ const Meat = () => {
               </div>
               <span style={{color: "#3c763d", fontSize: "300%", fontWeight: "700"}}>+10</span>
             </div>
-            {
-              isShow === true ?  
-              <div className={classes.close_btn} onClick={handleClose}>
-                <BsXLg className={classes.close_btn} />
-              </div> : ""
-            }
-           
+            <div className={classes.notify_close_btn} onClick={handleClose}>
+              <BsXLg className={classes.close_btn} />
+            </div>
           </Card.Body>
-        </Card>
+        </Card> : ""
       }
   </Row>
   )
