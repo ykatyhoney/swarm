@@ -7,31 +7,48 @@ import classes from "../meat.module.css"
 import { Context } from "../../../components/AppContext";
 
 const DroneDetails = () => {
-  const { droneValue, setDroneValue } = useContext(Context);
-  const { meatNum, setMeatNum } = useContext(Context);
+  const { droneCount, setDroneCount } = useContext(Context);
+  const { meatNum } = useContext(Context);
   const [ cookies, setCookie ] = useCookies([
     "velocity", 
     "larvaeCount", 
     "meatCount", 
-    "droneValue",
+    "droneCount",
+    "droneTime",
+    "droneClick",
   ]);
-  const [ droneStateValue, setDroneStateValue ] = useState(0)
+  const [ droneStateValue, setDroneStateValue ] = useState(0);
+  const [ droneClick, setDroneClick ] = useState(Number(cookies.droneClick) || 0);
 
   const handleDroneChange = (e) => {
     setDroneStateValue(e.target.value);
   }
   const handleHatch = () => {
+    if(cookies.droneClick == 0) {
+      const time = new Date();
+      setCookie("droneTime", time ,{ path: '/' });
+    }
+
+    setDroneClick(Number(cookies.droneClick)+1)
+    setCookie("droneClick", droneClick, {path: '/'});
+    
     if(droneStateValue === 0) {
-      alert("Please enter number")
+      alert("Please enter number");
     }
-    if(cookies.droneValue === undefined) {
-      setDroneValue(0 + Number(droneStateValue));
+    if(cookies.droneCount === undefined) {
+      setDroneCount(0 + Number(droneStateValue));
     }
-    setDroneValue(Number(cookies.droneValue) + Number(droneStateValue));
+    setDroneCount(Number(cookies.droneCount) + Number(droneStateValue));
+    setDroneStateValue(0);
   }
+
   useEffect(() => {
-    setCookie("droneValue", droneValue , { path: '/' });
-  }, [droneValue])
+    setCookie("droneClick", droneClick , { path: '/' });
+  }, [droneClick])
+
+  useEffect(() => {
+    setCookie("droneCount", droneCount , { path: '/' });
+  }, [droneCount])
 
   return (
     <div className={classes.droneDetails}>
@@ -42,8 +59,19 @@ const DroneDetails = () => {
         Drone
       </Link>
       <p>Drones are the lowest class of worker in your swarm. They continuously gather meat to feed your swarm.</p>
-      <p>You own no drones.</p>
-      <p>Each produces 1.00000 meat per second. (×1.00 bonus)</p>
+      <p>You own {cookies.droneCount == 0 ? "no" : cookies.droneCount} drones.</p>
+      <p>Each produces {' '}
+        {
+          cookies.velocity === "seconds" ? "1.00000"
+        : cookies.velocity === "minutes" ? "600"
+        : cookies.velocity === "hours" ? "3,6000"
+        : cookies.velocity === "days" ? "86,4000"
+        : "900/wrap"
+        }
+          meat per {' '}
+        {cookies.velocity}. (×1.00 bonus)
+      </p>
+      <p>In total, they produce {cookies.droneCount == 0 ? "1.0000" : cookies.droneCount  } meat per second</p>
       <div className={classes.divider} />
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
         <Form.Label column sm="1">
@@ -63,9 +91,14 @@ const DroneDetails = () => {
       <Button
         variant="outline-secondary"
         className={classes.hatch_btn}
+        value={droneStateValue}
         onClick={handleHatch}
       >
-        Hatch { droneStateValue === "" ? 1 : droneStateValue*10 < meatNum ? droneStateValue : Math.trunc(meatNum/10) }
+        Hatch 
+        { droneStateValue == "" ? 1 :
+          droneStateValue*10 < meatNum ? droneStateValue : 
+          Math.trunc(meatNum/10) 
+        }
       </Button>
       <Button
         variant="outline-secondary"

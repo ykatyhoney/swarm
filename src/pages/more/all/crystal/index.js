@@ -24,7 +24,7 @@ const Crystal = () => {
       </Card>
       <p>Converting crystals has permanently increased your maximum energy by 0.</p>
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-        <Form.Label column sm="1">
+        <Form.Label column sm="2">
           Converting 
         </Form.Label>
         <Col sm="4">

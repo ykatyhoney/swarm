@@ -8,23 +8,43 @@ const [ cookies, setCookie, removeCookie ] = useCookies([
   "velocity", 
   "larvaeCount", 
   "meatCount", 
-  "droneValue",
+  "droneCount",
+  "hatcheryCount",
+  "startCount",
+  "startTime",
 ]);
 const [ larvaeNum, setLarvaeNum ] = useState(Number(cookies.larvaeCount) || 10);
 const [ meatNum, setMeatNum ] = useState(Number(cookies.meatCount) || 35);
-const [ droneValue, setDroneValue ] = useState(Number(cookies.droneValue) || 0);
+const [ droneCount, setDroneCount ] = useState(Number(cookies.droneCount) || 0);
+const [ hatcheryCount, setHatcheryCount ]= useState(Number(cookies.hatcheryCount) || 0);
+const [ startCount, setStartCount ]= useState(Number(cookies.startCount) || 0);
 const [ selectedOption, setSelectedOption ] = useState("seconds");
+
+/******** Frist Render Time *********/
+useEffect(() => {
+  if(Number(cookies.startCount == 0)) {
+    setStartCount(Number(cookies.startCount) + 1);
+    const startTime = new Date();
+    setCookie("startTime", startTime, { path: '/' });
+  }
+}, [cookies.startCount])
+
+useEffect(() => {
+  setCookie("startCount", startCount , { path: '/' });
+}, [])
 
 /******** LarvaeCount **********/
   useEffect(() => {
     setCookie("larvaeCount", 10 , { path: '/' });
   }, [])
+
   const updateLarvaeCookie = () => {
     setCookie("larvaeCount", larvaeNum , { path: '/' });
   }
+
   const increaseLarvae = () => {
     setTimeout(() => {
-      setLarvaeNum(larvaeNum + 1);
+      setLarvaeNum(larvaeNum + 1 + hatcheryCount);
     }, 1000)
   }
   useEffect(() => {
@@ -34,15 +54,15 @@ const [ selectedOption, setSelectedOption ] = useState("seconds");
 
   /************meatCount *************/
   useEffect(() => {
-    setCookie("meatCount", 10 , { path: '/' });
+    setCookie("meatCount", 35 , { path: '/' });
   }, [])
   const updateMeatCookie = () => {
     setCookie("meatCount", meatNum , { path: '/' });
   }
   const increasemeat = () => {
-    if(droneValue > 0) {
+    if(droneCount > 0) {
       setTimeout(() => {
-        setMeatNum(meatNum + droneValue);
+        setMeatNum(meatNum + droneCount);
       }, 1000)
     }
   }
@@ -50,15 +70,18 @@ const [ selectedOption, setSelectedOption ] = useState("seconds");
     increasemeat();
     updateMeatCookie();
   }, [meatNum])
-/********** DroneVale *********/
-
+  
+  useEffect (() => {
+    setCookie("velocity","seconds", { path: '/' });
+  }, [cookies.velocity === undefined])
 
   return (
     <Context.Provider value={{
       selectedOption, setSelectedOption,
       larvaeNum, setLarvaeNum, 
-      droneValue, setDroneValue,
-      meatNum, setMeatNum}}
+      droneCount, setDroneCount,
+      meatNum, setMeatNum,
+      hatcheryCount, setHatcheryCount }}
     >
       {children}
     </Context.Provider>

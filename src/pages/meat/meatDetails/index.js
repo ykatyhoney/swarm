@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import classes from "../meat.module.css"
 
 const MeatDetails = () => {
-    const [ cookies ] = useCookies(["meatCount"]);
+    const [ cookies ] = useCookies(["velocity", "meatCount"]);
     return (
         <div className={classes.meatDetails}>
             <Link 
@@ -15,7 +15,16 @@ const MeatDetails = () => {
             </Link>
             <p>Meat is delicious. All of your swarm's creatures eat meat.</p>
             <p>You own {cookies.meatCount} meat.</p>
-            <p>You earn 1.00000 meat per second.</p>
+            <p>You earn {' '}
+                { 
+                  cookies.velocity === "seconds" ? "1.00000" :
+                  cookies.velocity === "minutes" ? "60" :
+                  cookies.velocity === "hours" ? "3,600" :
+                  cookies.velocity === "days" ? "86,400" :
+                  cookies.velocity === "swarmWarp" ? "900" : ""
+                } 
+              {' '}meat per second.
+            </p>
             <Link
                 to="/meat"
                 className={classes.close}
