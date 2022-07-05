@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from 'react';
 import { useCookies } from "react-cookie";
+import useInterval from "../useInterval";
 
 const Context = createContext();
 
@@ -13,11 +14,23 @@ const [ cookies, setCookie ] = useCookies([
   "startCount",
   "startTime",
 ]);
+
 const [ larvaeNum, setLarvaeNum ] = useState(Number(cookies.larvaeCount) || 10);
 const [ meatCount, setMeatCount ] = useState(Number(cookies.meatCount) || 35);
 const [ droneCount, setDroneCount ] = useState(Number(cookies.droneCount) || 0);
+const [ queenCount, setQueenCount ] = useState(Number(cookies.queenCount) || 0);
+const [ larvaeCount, setLarvaeCount ] = useState(Number(cookies.larvaeCount) || 0);
 const [ hatcheryCount, setHatcheryCount ]= useState(Number(cookies.hatcheryCount) || 0);
 const [ startCount, setStartCount ]= useState(Number(cookies.startCount) || 0);
+
+useInterval(() => {
+  setMeatCount((prevCounter) => {
+    return prevCounter + droneCount
+  });
+  setDroneCount((prevCounter) => {
+    return prevCounter + queenCount
+  });
+}, 1000)
 
 /******** Frist Render Time *********/
 useEffect(() => {
@@ -51,30 +64,28 @@ useEffect(() => {
     updateLarvaeCookie();
   }, [larvaeNum])
 
-  /************meatCount *************/
-  useEffect(() => {
-    setCookie("meatCount", 35 , { path: '/' });
-  }, [])
-  const updateMeatCookie = () => {
-    setCookie("meatCount", meatCount , { path: '/' });
-  }
-  const increasemeat = () => {
-    if(droneCount > 0) {
-      setTimeout(() => {
-        setMeatCount(meatCount + droneCount);
-      }, 1000)
-    }
-  }
-  useEffect(() => {
-    increasemeat();
-    updateMeatCookie();
-  }, [meatCount])
-
-  
+  /************* Initial **************/
   useEffect (() => {
     setCookie("velocity", "seconds", { path: '/' });
   }, [cookies.velocity === undefined])
-
+  useEffect(() => {
+    setCookie("meatCount", 35 , { path: '/' });
+  }, [])
+  useEffect(() => {
+    setCookie("droneCount", 0 , { path: '/' });
+  }, [])
+  useEffect(() => {
+    setCookie("queenCount", 0 , { path: '/' });
+  }, [])
+  useEffect (() => {
+    setCookie("numFormart", "standard", { path: '/' });
+  }, [cookies.numFormart === undefined])
+  useEffect (() => {  
+    setCookie("durationFormart", "exact", { path: '/' });
+  }, [cookies.durationFormart === undefined])
+  useEffect (() => {  
+    setCookie("theme", "default", { path: '/' });
+  }, [cookies.theme === undefined])
   useEffect(() => {
     setCookie("hatcheryCount", 0, {path: "/"})
   }, [])
@@ -82,6 +93,8 @@ useEffect(() => {
   return (
     <Context.Provider value={{
       droneCount, setDroneCount,
+      queenCount, setQueenCount,
+      larvaeCount, setLarvaeCount,
       hatcheryCount, setHatcheryCount,
       meatCount, setMeatCount,
     }}

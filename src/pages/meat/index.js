@@ -36,6 +36,14 @@ const Meat = () => {
   return (
     <Row className={classes.height}>
       <Col md={3}>
+        { Number(cookies.droneCount) >= 10 ? 
+            <Link className={classes.drone} to="/meat/queen">
+              <div className={classes.drone_name}>Queen</div>
+              <div className={classes.drone_value}>
+                {cookies.queenCount === undefined ? 0 : cookies.queenCount}
+              </div>
+          </Link> : ""
+        }
         <Link className={classes.drone} to="/meat/drone">
           <div className={classes.drone_name}>Drone</div>
           <div className={classes.drone_value}>

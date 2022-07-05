@@ -4,9 +4,14 @@ import { Button, ProgressBar } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 import { BsXLg } from "react-icons/bs";
 import classes from "../larvae.module.css"
-import { Context } from "../../../components/AppContext";
+import { Context } from "../../../context/AppContext";
 
 const LarvaDetails = () => {
+  window.addEventListener('beforeunload', function() {
+    alert('dfdfd');
+  })
+  window.onbeforeunload = () => alert('dfdfdf')
+  const { meatCount, setMeatCount } = useContext(Context);
   const [ cookies, setCookie ] = useCookies([
     "velocity", 
     "larvaeCount", 
@@ -27,10 +32,15 @@ const LarvaDetails = () => {
       setCookie("hatcheryTime", time ,{ path: '/' });
     }
 
-    setHatcheryCount(Number(cookies.hatcheryCount) + 1);
+    setHatcheryCount( prevCount => Number(prevCount) + 1);
+    setMeatCount(meatCount - 300*Math.pow(10, Number(cookies.hatcheryClick)));
     setHatcheryClick(Number(cookies.hatcheryClick) + 1);
-    setCookie("meatCount", Number(cookies.meatCount)-300*Math.pow(10, Number(cookies.hatcheryClick)));
   }
+
+  useEffect(() => {
+    setCookie("meatCount", meatCount , { path: '/' });
+  }, [ meatCount ])
+
   useEffect(() => {
     setCookie("hatcheryCount", hatcheryCount , { path: '/' });
   }, [ hatcheryCount ])

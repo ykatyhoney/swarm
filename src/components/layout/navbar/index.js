@@ -17,7 +17,7 @@ import { useCookies } from "react-cookie";
 import { AiOutlineContainer } from "react-icons/ai";
 import { BsFillFileEarmarkFontFill, BsFillArrowUpCircleFill } from "react-icons/bs";
 import { Nav, NavDropdown } from 'react-bootstrap';
-import { Context } from "../../../components/AppContext";
+import { Context } from "../../../context/AppContext";
 
 const LinkButton = (props) => {
   const navigate = useNavigate();
@@ -65,8 +65,8 @@ const Navbar = () => {
             to='/meat'
             style={{ color: '#337ab7', textDecoration: "none" }}
           >
-            { cookies.meatCount } meat
-            {/* { meatCount } meat */}
+            {/* { cookies.meatCount } meat */}
+            { meatCount } meat
           </LinkButton>
         </Nav.Link>
       </Nav.Item>
