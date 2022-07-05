@@ -1,11 +1,15 @@
+import { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Col, Row, Card } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import { BsCheckLg, BsXLg } from "react-icons/bs";
 import classes from "./meat.module.css";
-import { useState } from "react";
+import { Context } from "../../context/AppContext";
+
+import { func } from '../../utils'
 
 const Meat = () => {
+  const { queenCount, setQueenCount } = useContext(Context);
   const [ cookies, setCookie ] = useCookies([
     "velocity", 
     "larvaeCount", 
@@ -17,26 +21,13 @@ const Meat = () => {
   const handleClose = () => {
     setIsShow(true)
   }
-
-  var value = cookies.meatCount;
-  var newValue = value;
-  if (value >= 1000) {
-    var suffixes = ["", "k", "m", "b","t"];
-    var suffixNum = Math.floor( (""+value).length/3 );
-    var shortValue = '';
-    for (var precision = 2; precision >= 1; precision--) {
-        shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
-        var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g,'');
-        if (dotLessShortValue.length <= 2) { break; }
-    }
-    if (shortValue % 1 != 0)  shortValue = shortValue.toFixed(1);
-    newValue = shortValue+suffixes[suffixNum];
-  }
+  const value = cookies.meatCount;
+  const newValue = func(value);
 
   return (
     <Row className={classes.height}>
       <Col md={3}>
-        { Number(cookies.droneCount) >= 10 ? 
+        { Number(cookies.droneCount) >= 10 || queenCount > 0 ? 
             <Link className={classes.drone} to="/meat/queen">
               <div className={classes.drone_name}>Queen</div>
               <div className={classes.drone_value}>

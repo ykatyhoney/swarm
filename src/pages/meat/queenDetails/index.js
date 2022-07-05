@@ -29,8 +29,6 @@ const DroneDetails = () => {
     setQueenStateValue(e.target.value);
   }
 
-  console.log("droneCount", droneCount)
-  console.log("cookl droncount", cookies.droneCount)
   const handleHatch = () => {
     if(cookies.queenCount === undefined) {
       setQueenCount(0 + Number(queenStateValue));
@@ -106,7 +104,6 @@ const DroneDetails = () => {
           onClick={handleHatch}
         >
           Hatch
-          { Math.trunc(Number(cookies.meatCount)/(810*queenStateValue)) }
         </Button>
       }
       <Link
