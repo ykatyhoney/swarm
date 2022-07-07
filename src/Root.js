@@ -25,7 +25,9 @@ import { Context } from './context/AppContext'
 
 export const Root = () => {
 
-  const { 
+  const {
+    startCount,
+    velocity,
     meatCount, 
     droneCount, 
     larvaeNum,
@@ -35,8 +37,10 @@ export const Root = () => {
     queenCount,
     hatcheryCount, 
     hatcheryClick, 
+    hatcheryTime,
   } = useContext(Context)
   const [ cookies, setCookie ] = useCookies([
+    "startCount",
     "velocity", 
     "meatCount", 
     "droneCount",
@@ -49,6 +53,14 @@ export const Root = () => {
     "hatcheryClick",
     "hatcheryTime",
   ]);
+
+  useEffect(() => {
+    setCookie("startCount", startCount , { path: '/' });
+  }, [ startCount ])
+
+  useEffect(() => {
+    setCookie("velocity", velocity , { path: '/' });
+  }, [ velocity ])
 
   useEffect(() => {
     setCookie("meatCount", meatCount , { path: '/' });
@@ -86,21 +98,9 @@ export const Root = () => {
     setCookie("hatcheryClick", hatcheryClick , { path: '/' });
   }, [ hatcheryClick ])
 
-  /************* Initial **************/
-  useEffect (() => {
-    setCookie("velocity", "seconds", { path: '/' });
-  }, [cookies.velocity === undefined])
-
-  useEffect (() => {
-    setCookie("numFormart", "standard", { path: '/' });
-  }, [cookies.numFormart === undefined])
-  useEffect (() => {  
-    setCookie("durationFormart", "exact", { path: '/' });
-  }, [cookies.durationFormart === undefined])
-  useEffect (() => {  
-    setCookie("theme", "default", { path: '/' });
-  }, [cookies.theme === undefined])
-
+  useEffect(() => {
+    setCookie("hatcheryTime", hatcheryTime , { path: '/' });
+  }, [ hatcheryTime ])
 
   return (
     <BrowserRouter>

@@ -9,8 +9,15 @@ const Statistics = () => {
   const [ cookies ] = useCookies([
     "hatcheryClick",
     "startTime",
+    "droneTime",
+    "hatcheryTime",
   ]);
-  const { droneCount, droneClick, droneTime } = useContext(Context);
+  const { 
+    droneCount, 
+    droneClick, 
+    hatcheryClick,
+    hatcheryTime,
+  } = useContext(Context);
 
   return (
     <Container>
@@ -39,15 +46,15 @@ const Statistics = () => {
           <tr className={classes.divider1}>
             <td>Drone</td>
             <td>{ cookies.droneTime ? moment(cookies.droneTime).format('hh:mm:ss') : ""}</td>
-            <td>{droneClick}</td>
-            <td>{droneCount}</td>
-            <td>{droneCount}</td>
+            <td>{ droneClick }</td>
+            <td>{ droneCount }</td>
+            <td>{ droneCount }</td>
           </tr>
         </tbody>
       </Table>
       <div>
         {
-          cookies.hatcheryTime == undefined ? <span>No upgrades purchased</span> :
+          hatcheryTime === undefined ? <span>No upgrades purchased</span> :
           <Table responsive>
             <thead>
               <tr className={classes.divider2}>
@@ -60,9 +67,9 @@ const Statistics = () => {
             <tbody>
               <tr className={classes.divider1}>
                 <td>Hatchery</td>
-                <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
-                <td>{cookies.hatcheryClick}</td>
-                <td>{cookies.hatcheryClick}</td>
+                <td>{ hatcheryTime ? moment(hatcheryTime).format('hh:mm:ss') : ""}</td>
+                <td>{ hatcheryClick }</td>
+                <td>{ hatcheryClick }</td>
               </tr >
             </tbody>
           </Table>
@@ -76,7 +83,7 @@ const Statistics = () => {
           <div className={classes.flexCol2}>
             <span>1,005 base64 chars</span>
             <span>
-              {moment(cookies.startTime).fromNow()} - 
+              { moment(cookies.startTime).fromNow() } - 
               { moment(cookies.startTime).format('MMMM Do YYYY, h:mm:ss a') }
             </span>
             <span>never</span>

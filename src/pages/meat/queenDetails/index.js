@@ -7,7 +7,8 @@ import classes from "../meat.module.css";
 import { Context } from "../../../context/AppContext";
 
 const DroneDetails = () => {
-  const { 
+  const {
+    velocity,
     meatCount, 
     setMeatCount, 
     droneCount, 
@@ -18,10 +19,6 @@ const DroneDetails = () => {
     setQueenCount, 
   } = useContext(Context);
   const [ queenStateValue, setQueenStateValue ] = useState(0);
-
-  const [ cookies ] = useCookies([
-    "velocity", 
-  ]);
 
   const handleQueenChange = (e) => {
     setQueenStateValue(e.target.value);
@@ -53,14 +50,14 @@ const DroneDetails = () => {
       <p>You own {queenCount === 0 ? "no" : queenCount} queens.</p>
       <p>Each produces {' '}
         {
-          cookies.velocity === "seconds" ? "1.00000"
-        : cookies.velocity === "minutes" ? "60"
-        : cookies.velocity === "hours" ? "3,600"
-        : cookies.velocity === "days" ? "86,400"
+          velocity === "seconds" ? "1.00000"
+        : velocity === "minutes" ? "60"
+        : velocity === "hours" ? "3,600"
+        : velocity === "days" ? "86,400"
         : "900/wrap"
         }
           {' '} drones per {' '}
-        {cookies.velocity}. (×1.00 bonus)
+        {velocity}. (×1.00 bonus)
       </p>
       <div className={classes.divider} />
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
