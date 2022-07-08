@@ -21,11 +21,12 @@ const [ droneTime, setDroneTime ] = useState(Number(cookies.droneTime) || undefi
 const [ fasterDronesCounter, setFasterDrones ] = useState(Number(cookies.fasterDronesCounter || 0));
 const [ twinDronesCounter, setTwinDrones ] = useState(Number(cookies.twinDronesCounter || 0));
 const [ queenCount, setQueenCount ] = useState(Number(cookies.queenCount) || 0);
+const [ queenClick, setQueenClick ] = useState(Number(cookies.queenClick) || 0);
 const [ hatcheryCount, setHatcheryCount ]= useState(Number(cookies.hatcheryCount) || 0 );
+const [ hatcheryClick, setHatcheryClick ] = useState(Number(cookies.hatcheryClick) || 0);
 const [ hatcheryTime, setHatcheryTime ]= useState(Number(cookies.hatcheryTime) || undefined );
 const [ startCount, setStartCount ]= useState(Number(cookies.startCount) || 0);
 const [ currentUser, setCurrentUser ] = useState("");
-const [ hatcheryClick, setHatcheryClick ] = useState(Number(cookies.hatcheryClick) || 0);
 const [ selectedTheme, setSelectedTheme ] = useState(cookies.theme || false);
 
 useInterval(() => {
@@ -61,6 +62,7 @@ useEffect(() => {
         fasterDronesCounter, setFasterDrones,
         twinDronesCounter, setTwinDrones,
         queenCount, setQueenCount,
+        queenClick, setQueenClick,
         hatcheryCount, setHatcheryCount,
         currentUser, setCurrentUser,
         hatcheryClick, setHatcheryClick,

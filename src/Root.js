@@ -35,6 +35,7 @@ export const Root = () => {
     fasterDronesCounter,
     twinDronesCounter,
     queenCount,
+    queenClick,
     hatcheryCount, 
     hatcheryClick, 
     hatcheryTime,
@@ -89,6 +90,10 @@ export const Root = () => {
   useEffect(() => {
     setCookie("queenCount", queenCount , { path: '/' });
   }, [queenCount])
+
+  useEffect(() => {
+    setCookie("queenClick", queenClick , { path: '/' });
+  }, [queenClick])
 
   useEffect(() => {
     setCookie("hatcheryCount", hatcheryCount , { path: '/' });

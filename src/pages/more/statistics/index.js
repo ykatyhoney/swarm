@@ -16,6 +16,10 @@ const Statistics = () => {
     droneCount, 
     droneClick, 
     hatcheryClick,
+    queenCount,
+    queenClick,
+    fasterDronesCounter,
+    twinDronesCounter,
   } = useContext(Context);
   
   return (
@@ -49,11 +53,20 @@ const Statistics = () => {
             <td>{ droneCount }</td>
             <td>{ droneCount }</td>
           </tr>
+          { queenClick > 0 ?
+            <tr className={classes.divider1}>
+              <td>Queen</td>
+              <td>{ cookies.queenTime ? moment(cookies.queenTime).format('hh:mm:ss') : ""}</td>
+              <td>{ queenClick }</td> 
+              <td>{ queenCount }</td>
+              <td>{ queenCount }</td>
+            </tr> : ""
+          }
         </tbody>
       </Table>
       <div>
         {
-          cookies.hatcheryTime == "undefined" ? <span>No upgrades purchased</span> :
+          hatcheryClick > 0 ?
           <Table responsive>
             <thead>
               <tr className={classes.divider2}>
@@ -64,14 +77,32 @@ const Statistics = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className={classes.divider1}>
-                <td>Hatchery</td>
-                <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
-                <td>{ hatcheryClick }</td>
-                <td>{ hatcheryClick }</td>
-              </tr >
+              { cookies.hatcheryTime == "undefined" ? "" :
+                <tr className={classes.divider1}>
+                  <td>Hatchery</td>
+                  <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
+                  <td>{ hatcheryClick }</td>
+                  <td>{ hatcheryClick }</td>
+                </tr >
+              }
+              { fasterDronesCounter > 0 ?
+                <tr className={classes.divider1}>
+                  <td>Faster Drones</td>
+                  <td>{ cookies.fasterDronesTime ? moment(cookies.fasterDronesTime).format('hh:mm:ss') : ""}</td>
+                  <td>{ fasterDronesCounter }</td>
+                  <td>{ fasterDronesCounter }</td>
+                </tr > : ""
+              }
+              { twinDronesCounter > 0 ?
+                <tr className={classes.divider1}>
+                  <td>Twin Drones</td>
+                  <td>{ cookies.twinDronesTime ? moment(cookies.twinDronesTime).format('hh:mm:ss') : ""}</td>
+                  <td>{ twinDronesCounter }</td>
+                  <td>{ twinDronesCounter }</td>
+                </tr > : ""
+              }
             </tbody>
-          </Table>
+          </Table> : <span>No upgrades purchased</span>
         }
         <div className={classes.flex}>
           <div className={classes.flexCol1}>

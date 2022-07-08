@@ -9,15 +9,14 @@ import { Context } from "../../../context/AppContext";
 const DroneDetails = () => {
   const {
     velocity,
-    meatCount, 
-    setMeatCount, 
-    droneCount, 
-    setDroneCount,
-    larvaeNum,
-    setLarvaeNum,
-    queenCount, 
-    setQueenCount, 
+    meatCount, setMeatCount, 
+    droneCount, setDroneCount,
+    larvaeNum, setLarvaeNum,
+    queenCount, setQueenCount, 
+    queenClick, setQueenClick,
   } = useContext(Context);
+  const [ cookies, setCookie ] = useCookies([ "queenTime" ]);
+
   const [ queenStateValue, setQueenStateValue ] = useState(0);
 
   const handleQueenChange = (e) => {
@@ -29,9 +28,16 @@ const DroneDetails = () => {
       alert("Please input number"); 
       return;
     }
+
+    if(cookies.queenTime === undefined) {
+      const time = new Date();
+      setCookie("queenTime", time, {path: "/"});
+    }
+
     if(queenCount === undefined) {
       setQueenCount(0 + Number(queenStateValue));
     }
+    setQueenClick(queenClick+1);
     setQueenCount(prevCount => Number(prevCount) + Number(queenStateValue))
     setMeatCount(meatCount - Number(queenStateValue*810));
     setDroneCount(droneCount - Number(queenStateValue*100));
