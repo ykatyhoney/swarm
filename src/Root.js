@@ -28,6 +28,8 @@ export const Root = () => {
   const {
     startCount,
     velocity,
+    numFormart,
+    durationFormart,
     meatCount, 
     droneCount, 
     larvaeNum,
@@ -38,11 +40,13 @@ export const Root = () => {
     queenClick,
     hatcheryCount, 
     hatcheryClick, 
-    hatcheryTime,
+    advanceUnit,
   } = useContext(Context)
   const [ cookies, setCookie ] = useCookies([
     "startCount",
     "velocity", 
+    "numFormart",
+    "durationFormart",
     "meatCount", 
     "droneCount",
     "larvaeCount",
@@ -53,6 +57,7 @@ export const Root = () => {
     "hatcheryCount",
     "hatcheryClick",
     "hatcheryTime",
+    "isCheckedUnit",
   ]);
 
   useEffect(() => {
@@ -62,6 +67,14 @@ export const Root = () => {
   useEffect(() => {
     setCookie("velocity", velocity , { path: '/' });
   }, [ velocity ])
+
+  useEffect(() => {
+    setCookie("numFormart", numFormart , { path: '/' });
+  }, [ numFormart ])
+  
+  useEffect(() => {
+    setCookie("durationFormart", durationFormart , { path: '/' });
+  }, [ durationFormart ])
 
   useEffect(() => {
     setCookie("meatCount", meatCount , { path: '/' });
@@ -102,6 +115,10 @@ export const Root = () => {
   useEffect(() => {
     setCookie("hatcheryClick", hatcheryClick , { path: '/' });
   }, [ hatcheryClick ])
+
+  useEffect(() => {
+    setCookie("advanceUnit", advanceUnit , { path: '/' });
+  }, [ advanceUnit ])
 
   return (
     <BrowserRouter>

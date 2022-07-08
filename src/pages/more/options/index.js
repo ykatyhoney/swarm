@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
-import { Container, Form, Dropdown, Card, Button, Modal } from "react-bootstrap"
+import { Container, Form, Dropdown, Card, Button, Modal } from "react-bootstrap";
 import { BsFillEyeFill, BsFilm, BsDownload } from "react-icons/bs";
 import { ImBarcode, ImImage } from "react-icons/im";
 import Clipboard from 'clipboard';
@@ -39,10 +39,10 @@ const Options = () => {
     numFormart, setNumFormart,
     durationFormart, setDurationFormart,
     selectedTheme, setSelectedTheme,
+    advanceUnit, setAdvanceUnit,
   } = useContext(Context)
   const [ isShow, setIsShow ] = useState(false);
-  const [ cookies, setCookie, removeCookie ] = useCookies([ "advanceUnit", "startTime" ]);
-  const [ isChecked, setChecked ] = useState(cookies.advanceUnit || false);
+  const [ cookies, setCookie, removeCookie ] = useCookies([ "startTime" ]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -75,8 +75,7 @@ const Options = () => {
   }
 
   const handleChecked = (e) => {
-    setChecked(e.target.checked)
-    setCookie("advanceUnit", e.target.checked, {path: "/"});
+    setAdvanceUnit(e.target.checked);
   }
   
   return (
@@ -88,7 +87,7 @@ const Options = () => {
         <Form.Check.Input 
           type='checkbox' 
           isValid
-          checked={isChecked}
+          checked={advanceUnit}
           onChange={handleChecked}
         />
       </div>
@@ -228,7 +227,6 @@ const Options = () => {
           }
         </p>
       </div>
-
       <div className={classes.flex}>
         <ImBarcode />
         <strong style={{marginLeft: 5}}>Duration format</strong>
@@ -258,7 +256,6 @@ const Options = () => {
           }
         </p>
       </div>
-
       <Dropdown onSelect={handleSelect}>
         <Dropdown.Toggle 
           className={classes.toggle_btn} 

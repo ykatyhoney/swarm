@@ -1,9 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useCookies } from "react-cookie";
-import { Button, ProgressBar } from "react-bootstrap"
+import { Button, ProgressBar, Dropdown } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 import { BsXLg } from "react-icons/bs";
-import classes from "../larvae.module.css"
+import classes from "../larvae.module.css";
+import UpgradeUnit from "./upgradeUnit";
+import ExpansionUnit from "./expansionUnit";
 import { Context } from "../../../context/AppContext";
 
 const LarvaDetails = () => {
@@ -30,10 +32,8 @@ const LarvaDetails = () => {
   }, [meatCount])
 
   const handleHatchery = () => {
-    console.log("hatcheryClick", hatcheryClick)
     if(hatcheryClick === 0 ) {
       const time = new Date();
-      console.log("time", time)
       setCookie("hatcheryTime", time, {path: "/"});
     }
 
@@ -44,10 +44,7 @@ const LarvaDetails = () => {
 
   return (
     <div className={classes.larvaDetails}>
-      <Link 
-        to="/larvae"
-        className={classes.top_btn}
-      >
+      <Link to="/larvae" className={classes.top_btn}>
         Larva
       </Link>
       <p>The children of your swarm. These young morph into other adult units.</p>
@@ -65,7 +62,7 @@ const LarvaDetails = () => {
         {velocity}. (×1.00 bonus)</p>
       <hr />
       <h4>Upgrades</h4>
-      <p>Hatchery ({hatcheryClick})</p>
+      <UpgradeUnit />
       <p>
         Each hatchery produces more larvae per second. Currently, your hatcheries produce a total of {' '} 
         {
@@ -93,9 +90,8 @@ const LarvaDetails = () => {
         variant="custom"
         height={30}
       />
-        <Button
+      <Button
           disabled={
-            // false  
             meatCount > 300*(Math.pow(10, hatcheryClick)) ? false : true
           }
           variant="outline-secondary"
@@ -104,7 +100,7 @@ const LarvaDetails = () => {
         >
         { meatCount < 300*(Math.pow(10, hatcheryClick)) ? "Can't buy" : "Buy" }
       </Button>
-      <p>Expansion (0) </p>
+      <ExpansionUnit />
       <p>Each expansion increases your hatcheries' larvae production by 10%. Currently, your expansions increase hatchery production by 0%.</p>
       <p>Next upgrade costs 10 territory</p>
       <ProgressBar  now={ExpPercentage} label={`${ExpPercentage}% `} />
@@ -116,10 +112,7 @@ const LarvaDetails = () => {
       >
         Can't buy
       </Button>
-      <Link
-        to="/meat"
-        className={classes.close}
-      >
+      <Link to="/meat" className={classes.close}>
         <BsXLg className={classes.close_btn} />
       </Link>
     </div>
