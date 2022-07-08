@@ -16,9 +16,8 @@ const Statistics = () => {
     droneCount, 
     droneClick, 
     hatcheryClick,
-    hatcheryTime,
   } = useContext(Context);
-
+  
   return (
     <Container>
       <h1>Statistics</h1>
@@ -54,7 +53,7 @@ const Statistics = () => {
       </Table>
       <div>
         {
-          hatcheryTime === undefined ? <span>No upgrades purchased</span> :
+          cookies.hatcheryTime == "undefined" ? <span>No upgrades purchased</span> :
           <Table responsive>
             <thead>
               <tr className={classes.divider2}>
@@ -67,7 +66,7 @@ const Statistics = () => {
             <tbody>
               <tr className={classes.divider1}>
                 <td>Hatchery</td>
-                <td>{ hatcheryTime ? moment(hatcheryTime).format('hh:mm:ss') : ""}</td>
+                <td>{ cookies.hatcheryTime ? moment(cookies.hatcheryTime).format('hh:mm:ss') : ""}</td>
                 <td>{ hatcheryClick }</td>
                 <td>{ hatcheryClick }</td>
               </tr >

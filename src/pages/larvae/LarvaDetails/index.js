@@ -13,7 +13,6 @@ const LarvaDetails = () => {
     meatCount, setMeatCount,
     hatcheryClick, setHatcheryClick,
     hatcheryCount, setHatcheryCount,
-    hatcheryTime, setHatcheryTime,
   } = useContext(Context);
   const [ cookies, setCookie ] = useCookies([ "hatcheryTime" ]);
   const [hatPercentage, setHatPercentage] = useState(0);
@@ -28,14 +27,14 @@ const LarvaDetails = () => {
       setHatcheryClick(hatcheryClick +1);
       setButtons([...buttons, hatcheryClick + 1]);
     }
-  }, [])
+  }, [meatCount])
 
   const handleHatchery = () => {
-    console.log("hatcheryClick", hatcheryClick)
-    if(hatcheryClick === 0) {
+    if(hatcheryClick === 0 ) {
       const time = new Date();
-      setHatcheryTime(time);
+      setCookie("hatcheryTime", time, {path: "/"});
     }
+
     setHatcheryCount( hatcheryCount + 1);
     setMeatCount(meatCount - 300*Math.pow(10, hatcheryCount));
     setHatcheryClick(hatcheryClick + 1);
@@ -94,6 +93,7 @@ const LarvaDetails = () => {
       />
         <Button
           disabled={
+            // false  
             meatCount > 300*(Math.pow(10, hatcheryCount)) ? false : true
           }
           variant="outline-secondary"
@@ -102,7 +102,6 @@ const LarvaDetails = () => {
         >
         { meatCount < 300*(Math.pow(10, hatcheryCount)) ? "Can't buy" : "Buy" }
       </Button>
-      
       <p>Expansion (0) </p>
       <p>Each expansion increases your hatcheries' larvae production by 10%. Currently, your expansions increase hatchery production by 0%.</p>
       <p>Next upgrade costs 10 territory</p>

@@ -98,10 +98,6 @@ export const Root = () => {
     setCookie("hatcheryClick", hatcheryClick , { path: '/' });
   }, [ hatcheryClick ])
 
-  useEffect(() => {
-    setCookie("hatcheryTime", hatcheryTime , { path: '/' });
-  }, [ hatcheryTime ])
-
   return (
     <BrowserRouter>
       <Layout>
