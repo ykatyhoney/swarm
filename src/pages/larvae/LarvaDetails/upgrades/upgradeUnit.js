@@ -1,33 +1,33 @@
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { Dropdown } from "react-bootstrap";
-import classes from "../larvae.module.css";
+import classes from "../../larvae.module.css";
 import { useContext } from "react";
-import { Context } from "../../../context/AppContext";
+import { Context } from "../../../../context/AppContext";
 
-const ExpansionUnit = () => {
+const UpgradeUnit = () => {
   const { 
-    expansionNotify, setExpansionNotify
+    upgradeNotify, setUpgradeNotify,
   } = useContext(Context);
 
-  const handleExpansionSelect = (eventKey) => {
-    setExpansionNotify(eventKey);
+  const handleUpgradeSelect = (eventKey) => {
+    setUpgradeNotify(eventKey);
   };
 
   return (
     <div className={classes.flex}>
       <BsFillArrowUpCircleFill color="#337ab7" />
-      <Dropdown onSelect={handleExpansionSelect}>
+      <Dropdown onSelect={handleUpgradeSelect}>
         <Dropdown.Toggle 
           className={classes.toggle_btn} 
           variant="outline-secondary"
           id="dropdown-basic"
         >
           {
-            expansionNotify === "hide" ? "Hide Upgrade" :
-            expansionNotify === "never" ? "Never notify" :
-            expansionNotify === "buyable" ? "Notify when buyble" :
-            expansionNotify === "2cost" ? "Notify at 2* cost" : 
-            expansionNotify === "4cost" ? "Notify at 4* cost" : "Select"
+            upgradeNotify === "hide" ? "Hide Upgrade" :
+            upgradeNotify === "never" ? "Never notify" :
+            upgradeNotify === "buyable" ? "Notify when buyble" :
+            upgradeNotify === "2cost" ? "Notify at 2* cost" : 
+            upgradeNotify === "4cost" ? "Notify at 4* cost" : "Select"
           }
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -42,4 +42,4 @@ const ExpansionUnit = () => {
   )
 }
 
-export default ExpansionUnit
+export default UpgradeUnit

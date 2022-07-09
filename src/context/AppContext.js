@@ -30,8 +30,10 @@ const [ currentUser, setCurrentUser ] = useState("");
 const [ selectedTheme, setSelectedTheme ] = useState(cookies.theme || false);
 const [ advanceUnit, setAdvanceUnit ] = useState(cookies.advanceUnit || false);
 
-const [ upgradeNotify, setUpgradeNotify ] = useState(cookies.hatcheryNotify || "available");
-const [ expansionNotify , setExpansionNotify ] = useState(cookies.expansionNotify || "available");
+const [ upgradeNotify, setUpgradeNotify ] = useState(cookies.upgradeNotify || "buyable");
+const [ expansionNotify , setExpansionNotify ] = useState(cookies.expansionNotify || "buyable");
+const [ fasterNotify , setFasterNotify ] = useState(cookies.fasterNotify || "buyable");
+const [ twinNotify , setTwinNotify ] = useState(cookies.twinNotify || "buyable");
 
 useInterval(() => {
   setMeatCount((prevCounter) => {
@@ -77,7 +79,9 @@ useEffect(() => {
         selectedTheme, setSelectedTheme,
         advanceUnit, setAdvanceUnit,
         expansionNotify , setExpansionNotify,
-        upgradeNotify, setUpgradeNotify
+        upgradeNotify, setUpgradeNotify,
+        fasterNotify , setFasterNotify,
+        twinNotify , setTwinNotify,
       }}
     >
       {children}

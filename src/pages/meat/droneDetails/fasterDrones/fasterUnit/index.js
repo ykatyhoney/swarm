@@ -1,33 +1,35 @@
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { Dropdown } from "react-bootstrap";
-import classes from "../larvae.module.css";
+import classes from "../../../meat.module.css";
 import { useContext } from "react";
-import { Context } from "../../../context/AppContext";
+import { Context } from "../../../../../context/AppContext";
 
-const ExpansionUnit = () => {
+const FasterUnit = () => {
   const { 
-    expansionNotify, setExpansionNotify
+    fasterNotify, setFasterNotify
   } = useContext(Context);
 
-  const handleExpansionSelect = (eventKey) => {
-    setExpansionNotify(eventKey);
+  const handleFasterSelect = (eventKey) => {
+    setFasterNotify(eventKey);
   };
+
+console.log("fasterNotify", fasterNotify)
 
   return (
     <div className={classes.flex}>
       <BsFillArrowUpCircleFill color="#337ab7" />
-      <Dropdown onSelect={handleExpansionSelect}>
+      <Dropdown onSelect={handleFasterSelect}>
         <Dropdown.Toggle 
           className={classes.toggle_btn} 
           variant="outline-secondary"
           id="dropdown-basic"
         >
           {
-            expansionNotify === "hide" ? "Hide Upgrade" :
-            expansionNotify === "never" ? "Never notify" :
-            expansionNotify === "buyable" ? "Notify when buyble" :
-            expansionNotify === "2cost" ? "Notify at 2* cost" : 
-            expansionNotify === "4cost" ? "Notify at 4* cost" : "Select"
+            fasterNotify === "hide" ? "Hide upgrade" :
+            fasterNotify === "never" ? "Never notify" :
+            fasterNotify === "buyable" ? "Notify when buyble" :
+            fasterNotify === "2cost" ? "Notify at 2* cost" : 
+            fasterNotify === "4cost" ? "Notify at 4* cost" : "Select"
           }
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -42,4 +44,4 @@ const ExpansionUnit = () => {
   )
 }
 
-export default ExpansionUnit
+export default FasterUnit

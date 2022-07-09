@@ -24,7 +24,6 @@ import { useEffect, useContext } from 'react'
 import { Context } from './context/AppContext'
 
 export const Root = () => {
-
   const {
     startCount,
     velocity,
@@ -41,6 +40,10 @@ export const Root = () => {
     hatcheryCount, 
     hatcheryClick, 
     advanceUnit,
+    upgradeNotify,
+    expansionNotify,
+    fasterNotify,
+    twinNotify,
   } = useContext(Context)
   const [ cookies, setCookie ] = useCookies([
     "startCount",
@@ -58,6 +61,10 @@ export const Root = () => {
     "hatcheryClick",
     "hatcheryTime",
     "isCheckedUnit",
+    "upgradeNotify",
+    "expansionNotify",
+    "fasterNotify",
+    "twinNotify",
   ]);
 
   useEffect(() => {
@@ -119,6 +126,19 @@ export const Root = () => {
   useEffect(() => {
     setCookie("advanceUnit", advanceUnit , { path: '/' });
   }, [ advanceUnit ])
+
+  useEffect(() => {
+    setCookie("upgradeNotify", upgradeNotify , { path: '/' });
+  }, [ upgradeNotify ])
+  useEffect(() => {
+    setCookie("expansionNotify", expansionNotify , { path: '/' });
+  }, [ expansionNotify ])
+  useEffect(() => {
+    setCookie("fasterNotify", fasterNotify , { path: '/' });
+  }, [ fasterNotify ])
+  useEffect(() => {
+    setCookie("twinNotify", twinNotify , { path: '/' });
+  }, [ twinNotify ])
 
   return (
     <BrowserRouter>
