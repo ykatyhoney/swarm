@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Context } from "../../../../context/AppContext";
 import UpgradeUnit from "./upgradeUnit";
-import { Button, ProgressBar, Dropdown } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import classes from "../../larvae.module.css";
 
 

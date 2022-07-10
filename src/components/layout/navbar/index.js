@@ -37,9 +37,12 @@ const Navbar = () => {
     droneCount,
     larvaeNum,
     queenCount,
-    hatcheryCount,
+    hatcheryClick,
     fasterDronesCounter,
     twinDronesCounter,
+    upgradeNotify,
+    fasterNotify,
+    twinNotify,
   } = useContext(Context);
   const [ active, setActive ] = useState("meat");
   const styles = {
@@ -67,7 +70,8 @@ const Navbar = () => {
             style={{ color: '#337ab7', textDecoration: "none" }}
           >
             { newValue } meat {' '}
-            { queenCount >= Math.pow(10, twinDronesCounter) || droneCount > 66*(fasterDronesCounter+1) ?
+            { 
+              (queenCount >= Math.pow(10, twinDronesCounter) || droneCount > 66*(fasterDronesCounter+1)) && (fasterNotify === "never" || twinNotify === "never") ? "" : queenCount >= Math.pow(10, twinDronesCounter) || droneCount > 66*(fasterDronesCounter+1) ?
               <BsFillArrowUpCircleFill size={12} color="#337ab7" /> : ""
             }
           </LinkButton>
@@ -82,7 +86,8 @@ const Navbar = () => {
             style={{ color: "#337ab7", textDecoration: "none" }}
           >
             { newLarvaeValue } {' '}larvae{' '}
-            { meatCount > 300*(Math.pow(10, hatcheryCount)) ?
+            { 
+              upgradeNotify === "never" ? "" : meatCount > 300*(Math.pow(10, hatcheryClick)) ?
               <BsFillArrowUpCircleFill size={12} color="#337ab7" /> : ""
             }
           </LinkButton>
