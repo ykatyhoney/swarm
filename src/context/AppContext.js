@@ -35,6 +35,19 @@ const [ expansionNotify , setExpansionNotify ] = useState(cookies.expansionNotif
 const [ fasterNotify , setFasterNotify ] = useState(cookies.fasterNotify || "buyable");
 const [ twinNotify , setTwinNotify ] = useState(cookies.twinNotify || "buyable");
 
+const [ automatic, setAutomatic ] = useState(cookies.autoMatic || true);
+const [ numberRange, setNumberRange ] = useState(cookies.numberRange || 10);
+
+const handleHatchery = (i) => {
+  if(hatcheryClick === 0 ) {
+    const time = new Date();
+    setCookie("hatcheryTime", time, {path: "/"});
+  }
+  setHatcheryCount( hatcheryCount + 1);
+  setMeatCount(meatCount - 300*Math.pow(10, i));
+  setHatcheryClick(hatcheryClick + 1);
+}
+
 useInterval(() => {
   setMeatCount((prevCounter) => {
     return prevCounter + droneCount;
@@ -82,6 +95,9 @@ useEffect(() => {
         upgradeNotify, setUpgradeNotify,
         fasterNotify , setFasterNotify,
         twinNotify , setTwinNotify,
+        automatic, setAutomatic,
+        numberRange, setNumberRange,
+        handleHatchery,
       }}
     >
       {children}

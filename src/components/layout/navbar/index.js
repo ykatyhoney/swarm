@@ -55,6 +55,14 @@ const Navbar = () => {
   const newValue = func(meatCount);
   const newLarvaeValue = func(larvaeNum);
 
+  const handleCheapestUpgrade = () => {
+    console.log("clicicicicici")
+  }
+
+  const handleAllupgrade = () => {
+    
+  }
+
   return (
     <Nav 
       variant="tabs" 
@@ -99,11 +107,11 @@ const Navbar = () => {
         }
         id="nav-dropdown"
       >
-        <NavDropdown.Item eventKey="4.1">
+        <NavDropdown.Item onclick={handleAllupgrade} eventKey="4.1">
           {' '}
           <BsArrowUpCircleFill /> Buy all 1 upgrade
         </NavDropdown.Item>
-        <NavDropdown.Item eventKey="4.2">
+        <NavDropdown.Item onClick={handleCheapestUpgrade} eventKey="4.2">
           {' '}
           <BsArrowUpCircle /> Buy cheapest 1 upgrade
         </NavDropdown.Item>

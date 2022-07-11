@@ -8,13 +8,13 @@ import Upgrades from "./upgrades";
 import Expansion from "./expansion";
 
 const LarvaDetails = () => {
-  const { 
-    velocity,
-    larvaeNum,
-    meatCount, setMeatCount,
-    hatcheryClick, setHatcheryClick,
-    hatcheryCount, setHatcheryCount,
-  } = useContext(Context);
+    const { 
+      velocity,
+      larvaeNum,
+      meatCount, setMeatCount,
+      hatcheryClick, setHatcheryClick,
+      hatcheryCount, setHatcheryCount,
+    } = useContext(Context);
   const [ cookies, setCookie ] = useCookies([ "hatcheryTime" ]);
   const [hatPercentage, setHatPercentage] = useState(0);
   const [ buttons, setButtons ] = useState([1]);
@@ -28,15 +28,17 @@ const LarvaDetails = () => {
     }
   }, [meatCount])
 
-  const handleHatchery = () => {
-    if(hatcheryClick === 0 ) {
-      const time = new Date();
-      setCookie("hatcheryTime", time, {path: "/"});
-    }
-    setHatcheryCount( hatcheryCount + 1);
-    setMeatCount(meatCount - 300*Math.pow(10, hatcheryClick));
-    setHatcheryClick(hatcheryClick + 1);
-  }
+  // const handleHatchery = (i) => {
+  //   if(hatcheryClick === 0 ) {
+  //     const time = new Date();
+  //     setCookie("hatcheryTime", time, {path: "/"});
+  //   }
+  //   setHatcheryCount( hatcheryCount + 1);
+  //   setMeatCount(meatCount - 300*Math.pow(10, i));
+  //   setHatcheryClick(hatcheryClick + 1);
+  // }
+
+  const 
 
   return (
     <div className={classes.larvaDetails}>
